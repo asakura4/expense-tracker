@@ -12,7 +12,6 @@ db.once('open', () => {
     console.log('CategorySeeder start!')
     Promise.all(categories.map(category => {
         return Category.create({
-            id: category.id,
             name: category.name
         })
     })).then(() => {
