@@ -4,9 +4,37 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
+const User = require('../../models/user')
 
-router.get('/new', (req, res) => {
-    return res.render('new')
+
+router.post('/', async (req, res) => {
+
+    try{
+        const { name, date, category, amount } = req.body
+        const returnCategory= await Category.findOne({name: category}).lean()
+        
+        //const userId = req.user._id
+        //test
+        const user = await User.findOne({name: "廣志"}).lean()
+    
+        await Record.create({
+            name, 
+            date,
+            categoryId: returnCategory._id,
+            userId: user._id,
+            amount
+        })
+        return res.redirect('/')        
+    }catch(error){
+        console.log(error)
+    }
+})
+
+
+router.get('/new', async (req, res) => {
+
+    const categories = await Category.find().lean()
+    return res.render('new',{ categories })
 
 })
 

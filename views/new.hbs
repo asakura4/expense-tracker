@@ -1,0 +1,68 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 col-md-10 mx-auto"></div>
+        <form action="/records" method="POST" style="display: inline;">
+            <div class="form-group">
+                <div class="row my-2">
+                    <div class="col-3">
+                        <h4 class="text-muted">*Required field</h4>
+                    </div>
+                    <div class="col-9">
+                        <h3>Please input the fields below: </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row my-2">
+
+                    <div class="col-3">
+                        <label for="name"><h3>Name*: </h3></label>
+                    </div>
+                    <div class="col-9">
+                         <input class="form-control" type="text" placeholder="name" name="name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row my-2">
+                    <div class="col-3">
+                        <label for="date"><h3>Date*: </h3></label>
+                    </div>
+                    <div class="col-9">
+                         <input class="form-control-lg" type="date" placeholder="" name="date" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row my-2">
+                    <div class="col-3">
+                        <label for="category"><h3>Category*: </h3></label>
+                    </div>
+                    <div class="col-9">
+                         <select class="form-control" name="category">
+                            {{#each categories}}
+                                <option>{{this.name}}</option>
+                            {{/each}}
+                         </select>
+                         {{!-- <input class="form-control" type="text" placeholder="name：" name="name" required> --}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row mt-2">
+                    <div class="col-3">
+                        <label for="amount"><h3>Amount*: </h3></label>
+                    </div>
+                    <div class="col-9">
+                         <input class="form-control" type="text" placeholder="amount" name="amount" required>
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn">
+                <button class="btn btn-success" type="submit">Create</button>
+                <a class="btn btn-secondary" href="/" role="button">Cancel</a>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
