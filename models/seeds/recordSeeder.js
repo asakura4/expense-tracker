@@ -31,13 +31,11 @@ db.once('open', async () => {
                 email: seedUser.email,
                 password: hash
             })
-            // console.log(categoryLists)
-            // console.log(createdUser._id)
-
-            const recordList = records.filter(record => record.name = createdUser.name)
-            await Promise.all(recordList.map(record => {
+            
+            const recordList = records.filter(record => record.user == createdUser.name)
+            await Promise.all(recordList.map(async (record) => {
                 const category = categoryLists.filter(category => category.name === record.category)
-                Record.create({
+                return await Record.create({
                     name: record.name,
                     date: record.date,
                     amount: record.amount,
