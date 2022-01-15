@@ -1,10 +1,6 @@
-const exphbs = require('express-handlebars')
 const moment = require('moment')
-const { CATEGORY } = require('../config/icon');
-const category = require('../models/category');
+const { CATEGORY } = require('../../config/icon');
 
-
-const hbs = exphbs.create({})
 const handlebarHelper= {
     dateFormat: function(datetime){
         return moment.utc(datetime).format("YYYY-MM-DD");

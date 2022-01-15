@@ -50,12 +50,10 @@ router.get('/category/:categoryId', async (req, res) => {
         const categoryId = req.params.categoryId
         //const userId = req.user._id
 
-        const records = await Record.find({
-            
-        })
-        .populate('categoryId')
-        .lean()
-        .sort({date: 'asc'})
+        const records = await Record.find({ })
+            .populate('categoryId')
+            .lean()
+            .sort({date: 'asc'})
 
         const categories = await Category.find()
         .lean()
@@ -76,6 +74,7 @@ router.get('/category/:categoryId', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
 
     try{
+        // const userId = req.user._id
         const _id = req.params.id
         const categories = await Category.find().lean()
         const record = await Record.findOne({ _id })
@@ -117,6 +116,8 @@ router.put('/:id', async (req, res) => {
     })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+
+
     // return Restaurant.findOne({ _id, userId })
     //   .then(restaurant => {
     //     restaurant.name = name
@@ -140,6 +141,8 @@ router.delete('/:id', (req, res) => {
       .then(Record => Record.remove())
       .then(() => res.redirect('/'))
       .catch(error => console.log(error))
+
+
     //const userId = req.user._id
     // return Restaurant.findOne({ _id, userId })
     //   .then(restaurant => restaurant.remove())
