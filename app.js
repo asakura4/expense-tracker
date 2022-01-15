@@ -1,5 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 if(process.env.NODE_ENV !== 'prod'){
     require('dotenv').config();
 }
@@ -16,8 +18,10 @@ const PORT = process.env.PORT
 app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-const hbs = exphbs.create({})
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(methodOverride('_method'))
 
+const hbs = exphbs.create({})
 hbs.handlebars.registerHelper('formatDate', handlebarHelper.dateFormat)
 hbs.handlebars.registerHelper('iconLink', handlebarHelper.iconLink)
 

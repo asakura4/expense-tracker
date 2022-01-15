@@ -65,9 +65,9 @@
                         </div>
                     <div class="col-auto ml-auto">
                         <a class="btn btn-success" href="/records/:id">edit</a>
-                        {{!-- <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"> --}}
+                        <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"> 
                             <button class="btn btn-danger" type="submit">delete</button>
-                        {{!-- </form> --}}
+                        </form>
                     </div>
                 </div>
                 {{/each}}

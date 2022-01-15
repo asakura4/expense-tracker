@@ -38,5 +38,20 @@ router.get('/category/:categoryId', async (req, res) => {
 
 })
 
+router.delete('/:id', (req, res) => {
+    const _id = req.params.id
+    //const userId = req.user._id
+    return Record.findOne({ _id })
+      .then(restaurant => restaurant.remove())
+      .then(() => res.redirect('/'))
+      .catch(error => console.log(error))
+    //const userId = req.user._id
+    // return Restaurant.findOne({ _id, userId })
+    //   .then(restaurant => restaurant.remove())
+    //   .then(() => res.redirect('/'))
+    //   .catch(error => console.log(error))
+  })
+
+
 
 module.exports = router
