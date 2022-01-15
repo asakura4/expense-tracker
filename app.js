@@ -24,6 +24,7 @@ app.use(methodOverride('_method'))
 const hbs = exphbs.create({})
 hbs.handlebars.registerHelper('formatDate', handlebarHelper.dateFormat)
 hbs.handlebars.registerHelper('iconLink', handlebarHelper.iconLink)
+hbs.handlebars.registerHelper('option', handlebarHelper.option)
 
 app.use(express.static(path.join(__dirname, '/public')))
 app.use((req, res, next)=>{

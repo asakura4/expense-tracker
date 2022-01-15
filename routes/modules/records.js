@@ -5,6 +5,7 @@ const Record = require('../../models/record')
 const Category = require('../../models/category')
 
 const User = require('../../models/user')
+const { reset } = require('nodemon')
 
 
 router.post('/', async (req, res) => {
@@ -33,8 +34,14 @@ router.post('/', async (req, res) => {
 
 router.get('/new', async (req, res) => {
 
-    const categories = await Category.find().lean()
-    return res.render('new',{ categories })
+    try{
+        const categories = await Category.find().lean()
+        return res.render('new',{ categories })
+    }catch(error){
+        console.log(error)
+        res.redirect('/')
+    }
+    
 
 })
 
@@ -64,6 +71,66 @@ router.get('/category/:categoryId', async (req, res) => {
         console.log(error)
     }
 
+})
+
+router.get('/:id/edit', async (req, res) => {
+
+    try{
+        const _id = req.params.id
+        const categories = await Category.find().lean()
+        const record = await Record.findOne({ _id })
+            .populate('categoryId')
+            .lean()
+        
+            console.log(record)
+
+        return res.render('edit',{ record, categories })
+    }catch(error){
+        console.log(error)
+        return res.redirect('/')
+    }
+    // const userId = req.user._id
+    // return Record.findOne({ _id, userId })
+    //   .lean()
+    //   .then(record => res.render('edit', { record }))
+    //   .catch(error => console.log(error))
+})
+
+router.put('/:id', async (req, res) => {
+    const _id = req.params.id
+    //const userId = req.user._id
+
+    //test
+    const user = await User.findOne({name: "廣志"}).lean()
+
+    const { name, date, category, amount } = req.body
+    const returnCategory= await Category.findOne({name: category}).lean()
+
+    return await Record.findOne({ _id })
+    .then(record => {
+        record.name = name,
+        record.date = date,
+        record.categoryId = returnCategory._id,
+        record.userId = user._id,
+        record.amount = amount
+      return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+    // return Restaurant.findOne({ _id, userId })
+    //   .then(restaurant => {
+    //     restaurant.name = name
+    //     restaurant.name_en = name_en
+    //     restaurant.category = category
+    //     restaurant.image = image
+    //     restaurant.address = address
+    //     restaurant.phone = phone
+    //     restaurant.rating = rating
+    //     restaurant.description = description
+    //     return restaurant.save()
+    //   })
+    //   .then(() => res.redirect(`/restaurants/${_id}`))
+    //   .catch(error => console.log(error))
 })
 
 router.delete('/:id', (req, res) => {
