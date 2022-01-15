@@ -11,16 +11,20 @@ router.get('/', async (req, res) => {
         .lean()
         .sort({date: 'asc'})
 
+
+        const categories = await Category.find()
+        .lean()
+
+        // console.log(records)
+        // console.log(categories)
         const totalAmount = records.reduce((total, record) => {
             return total + record.amount;
         }, 0)
-        return res.render('index', { records, totalAmount})
+        return res.render('index', { records, totalAmount, categories})
 
     }catch(error){
         console.log(error)
     }
-
-    
 })
 
 module.exports = router

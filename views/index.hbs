@@ -13,10 +13,9 @@
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="/">全部</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <a class="dropdown-item" href="#">Separated link</a>
+                {{#each categories}}
+                <a class="dropdown-item" href="/records/category/{{ this._id }}">{{this.name}}</a>
+                {{/each}}
             </div>
         </div>
     </div>
@@ -25,7 +24,7 @@
 <div class="container mt-3">
     <div class="row justify-content-start">
         <div class="col-10">
-            <h3>Total amount:</h3>
+            <h3>Total amount {{#if selectedCategory.name}} of {{selectedCategory.name}}{{/if}}:</h3>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -40,37 +39,48 @@
     <ul class="list-group">
         <li class="list-group-item">
             {{!-- {{#each  records}} --}}
-            {{#each records}}
-            <div class="row justify-content-between">
-                    <div class="col-1">
-                        {{{ iconLink  this.categoryId.name }}}
-                    </div>
-                    <div class="col-6 col-sm-4">
-                        <div class="col-8">
-                           
-                            <h4 style="display: inline; text-align: left">
-                                {{ this.name }}
-                            </h4>
+            {{#if records}}
+                {{#each records}}
+                <div class="row justify-content-between">
+                        <div class="col-1">
+                            {{{ iconLink  this.categoryId.name }}}
                         </div>
-                        <div> 
-                            <p style="display: inline;">
-                                {{ formatDate this.date }}
-                            </p>
+                        <div class="col-6 col-sm-4">
+                            <div class="col-8">
+                            
+                                <h4 style="display: inline; text-align: left">
+                                    {{ this.name }}
+                                </h4>
+                            </div>
+                            <div> 
+                                <p style="display: inline;">
+                                    {{ formatDate this.date }}
+                                </p>
+                            </div>
                         </div>
+                        <div class="col-4 col-sm-2">
+                            <h3 style="display: inline;">
+                                {{ this.amount }}
+                            </h3>
+                        </div>
+                    <div class="col-auto ml-auto">
+                        <a class="btn btn-success" href="/records/:id">edit</a>
+                        {{!-- <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"> --}}
+                            <button class="btn btn-danger" type="submit">delete</button>
+                        {{!-- </form> --}}
                     </div>
-                    <div class="col-4 col-sm-2">
-                        <h3 style="display: inline;">
-                            {{ this.amount }}
-                        </h3>
-                    </div>
-                <div class="col-auto ml-auto">
-                    <a class="btn btn-success" href="/records/:id">edit</a>
-                    {{!-- <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"> --}}
-                        <button class="btn btn-danger" type="submit">delete</button>
-                    {{!-- </form> --}}
                 </div>
-            </div>
-            {{/each}}
+                {{/each}}
+            {{else}}
+                <div class="row">
+                    <h4 style="display: inline;">
+                        Oh, there was no record.
+                    </h4>
+                </div>
+            {{/if}}
         </li>
     </ul>
+    <div class="form-btn mt-3">
+        <a role="button" class="btn btn-primary btn-lg" href="/records/new">Add New!</a>
+    </div>
 </div>

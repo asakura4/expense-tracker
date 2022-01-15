@@ -7,7 +7,8 @@ if(process.env.NODE_ENV !== 'prod'){
 const path = require('path')
 require('./config/mongoose')
 const routes = require('./routes')
-const {handlebarHelper} = require('./Helper/handlebarHelper')
+const {handlebarHelper} = require('./Helper/handlebarHelper');
+const { Http2ServerRequest } = require('http2');
 
 const app = express()
 const PORT = process.env.PORT

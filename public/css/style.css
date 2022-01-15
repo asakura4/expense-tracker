@@ -31,3 +31,8 @@ body {
     text-align: right;
     font-size: 3rem;
 }
+
+.form-btn {
+    padding: 5px 0px 10px 0px;
+    text-align: right;
+}

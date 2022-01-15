@@ -10,7 +10,6 @@ const handlebarHelper= {
     iconLink: function(property){
         return CATEGORY[property]
     }
-
 }
 
 
