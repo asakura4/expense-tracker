@@ -1,1 +1,76 @@
-<h1>Index page!</h1>
+
+<!-- Drop down bar -->
+<div class="container dropdown-bar">
+    <div class="row">
+        <div class="col">
+            <h2>XXX's Receipts</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col btn-group">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="categoryDropdown">
+                Please choise the category below
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/">全部</a>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Total amount -->
+<div class="container mt-3">
+    <div class="row justify-content-start">
+        <div class="col-10">
+            <h3>Total amount:</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10" id="amount-title">
+            NT${{ totalAmount }}
+        </div>
+    </div>
+</div>
+
+<!-- Receipt zone -->
+<div class="container mt-2 mb-4">
+    <ul class="list-group">
+        <li class="list-group-item">
+            {{!-- {{#each  records}} --}}
+            {{#each records}}
+            <div class="row justify-content-between">
+                    <div class="col-1">
+                        {{{ iconLink  this.categoryId.name }}}
+                    </div>
+                    <div class="col-6 col-sm-4">
+                        <div class="col-8">
+                           
+                            <h4 style="display: inline; text-align: left">
+                                {{ this.name }}
+                            </h4>
+                        </div>
+                        <div> 
+                            <p style="display: inline;">
+                                {{ formatDate this.date }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-2">
+                        <h3 style="display: inline;">
+                            {{ this.amount }}
+                        </h3>
+                    </div>
+                <div class="col-auto ml-auto">
+                    <a class="btn btn-success" href="/records/:id">edit</a>
+                    {{!-- <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"> --}}
+                        <button class="btn btn-danger" type="submit">delete</button>
+                    {{!-- </form> --}}
+                </div>
+            </div>
+            {{/each}}
+        </li>
+    </ul>
+</div>
