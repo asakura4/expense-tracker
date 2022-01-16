@@ -3,12 +3,12 @@ const db = require('../config/mongoose')
 const Schema = mongoose.Schema
 
 const categorySchema = new Schema({
-    
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    }
+
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  }
 
 })
 
