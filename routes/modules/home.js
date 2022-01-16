@@ -3,24 +3,23 @@ const router = express.Router()
 
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const User = require('../../models/user')
 
 router.get('/', async (req, res) => {
     try{
-        const records = await Record.find({})
-        .populate('categoryId')
-        .lean()
-        .sort({date: 'asc'})
-
-
+        const userId = req.user._id
+        const loginUser = await User.findById(userId).lean()
         const categories = await Category.find()
         .lean()
 
-        // console.log(records)
-        // console.log(categories)
+        const records = await Record.find({ userId })
+        .populate('categoryId')
+        .lean()
+        .sort({date: 'asc'})
         const totalAmount = records.reduce((total, record) => {
             return total + record.amount;
         }, 0)
-        return res.render('index', { records, totalAmount, categories})
+        return res.render('index', { loginUser, records, totalAmount, categories})
 
     }catch(error){
         console.log(error)
